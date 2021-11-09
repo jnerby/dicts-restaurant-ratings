@@ -4,6 +4,20 @@ from random import choice
 # initialize empty directory
 ratings = {}
 
+file = open("scores.txt")
+
+# loop through scores.txt file to create dictionary
+for line in file:
+# strip and split at colon
+    line = line.strip().split(":")
+    # variable assignment
+    restaurant = line[0]
+    rating = line[1]
+    # insert into dictionary
+    ratings[restaurant] = rating
+
+file.close()
+
 def add_rating():
     """Ask user to add new restaurant and rating"""
     # asking user for new restaurant and rating
@@ -16,6 +30,13 @@ def add_rating():
 
     # insert user entry into dictionary
     ratings[new_restaurant] = new_score
+
+def choose_restaurant():
+    chosen = ""
+    while chosen not in list(ratings.keys()):
+        chosen = input("Choose a restaurant: ")
+    score = input("New Score: ")
+    ratings[chosen] = score
 
 # def main():
 #     view_ratings = input("Would you like to view all ratings? (Y/N) ")
@@ -33,13 +54,19 @@ def add_rating():
 def main():
     """Gives users choices to view, add or quit"""
     answer = ""
-    while answer not in ["View", "Add"]:
-        answer = input("What would you like to do? View/Add/Quit? ")
+    while answer not in ["View", "Add", "Random", "Choose", "Quit"]:
+        answer = input("What would you like to do? View/Add/Random/Choose/Quit? ")
     if answer == "View":
         print_ratings()
         main()
     elif answer == "Add":
         add_rating()
+        main()
+    elif answer == "Random":
+        random_restaurant()
+        main()
+    elif answer == "Choose":
+        choose_restaurant()
         main()
     elif answer == "Quit":
         quit()
@@ -47,28 +74,30 @@ def main():
 
 def print_ratings():
     """"Print all restaurants and ratings"""
-    file = open("scores.txt")
+    # file = open("scores.txt")
 
-    # loop through scores.txt file to create dictionary
-    for line in file:
-        # strip and split at colon
-        line = line.strip().split(":")
-        # variable assignment
-        restaurant = line[0]
-        rating = line[1]
-        # insert into dictionary
-        ratings[restaurant] = rating
+    # # loop through scores.txt file to create dictionary
+    # for line in file:
+    #     # strip and split at colon
+    #     line = line.strip().split(":")
+    #     # variable assignment
+    #     restaurant = line[0]
+    #     rating = line[1]
+    #     # insert into dictionary
+    #     ratings[restaurant] = rating
 
     # sorting and printing for each key-value pair
     for restaurant, rating in sorted(ratings.items()):
         print(f"{restaurant} is rated at {rating}.")
 
-    file.close()
+    # file.close()
 
 def random_restaurant():
-    chosen_rest = random.choice(ratings.keys())
-    print(f"The chosen restaurant is {chosen_rest}.")
+    chosen_rest = choice(list(ratings.keys()))
+    print(f"The chosen restaurant is: {chosen_rest}.")
+    score = int(input("New rating: "))
+    ratings[chosen_rest] = score
 
 
 
-# main()
+main()
