@@ -1,11 +1,5 @@
 """Restaurant rating lister."""
-
-# main fuction asks user if they want to see all ratings
-    # if yes, call print_ratings
-    # if no, ask if user wants to add a new rating
-        # if yes, call new_rating function
-        # if no, ask if user wants to quit
-            # if yes, call quit function
+from random import choice
 
 # initialize empty directory
 ratings = {}
@@ -71,8 +65,10 @@ def print_ratings():
 
     file.close()
 
-def quit_program():
-    quit()
+def random_restaurant():
+    chosen_rest = random.choice(ratings.keys())
+    print(f"The chosen restaurant is {chosen_rest}.")
 
 
-main()
+
+# main()
