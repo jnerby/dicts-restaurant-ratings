@@ -8,7 +8,12 @@ ratings = {}
 
 # asking user for new restaurant and rating
 new_restaurant = input("Restaurant name: ")
-new_score = input("Rating: ")
+# initialized new_score at integer that forces into while loop
+new_score = 0
+# Validate score between 1 and 5
+while new_score < 1 or new_score > 6:
+    new_score = int(input("Rating: "))
+
 
 # insert user entry into dictionary
 ratings[new_restaurant] = new_score
